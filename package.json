@@ -1,0 +1,35 @@
+{
+  "name": "sd-front-end",
+  "version": "1.0.0",
+  "description": "Front end of project SD",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jorge-Andres-Moreno/SD-front-end.git"
+  },
+  "keywords": [
+    "NodeJs",
+    "Front-End",
+    "HTML",
+    "JS",
+    "Express"
+  ],
+  "author": "Jorge Moreno & Felipe Jurado",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jorge-Andres-Moreno/SD-front-end/issues"
+  },
+  "homepage": "https://github.com/Jorge-Andres-Moreno/SD-front-end#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "superagent": "^5.2.2"
+  }
+}
