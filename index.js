@@ -76,22 +76,3 @@ app.get('/add', function (req, res) {
 });
 
 module.exports = app.listen(port);
-
-
-//Example
-
-//app.get('/', function(req, res){
-//    console.log('GET="/"');
-//    res.status(200).sendFile(path.join(__dirname + '/public/views/index.html'));
-//});
-
-//app.get('/add', function (req, res) {
-//    console.log('GET="/add"');
-//    res.status(200).sendFile(path.join(__dirname + '/public/views/add.html'));
-//});
-
-//app.post('/', function (req, res) {
-//    console.log('POST="/"');
-//    console.log(req.body)
-//    res.status(200).sendFile(path.join(__dirname + '/public/views/index.html'));
-//});
