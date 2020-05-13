@@ -48,6 +48,7 @@ app.post("/", function (req, res) {
   //console.log(req.body)
   request
     .post("http://" + backendHost + ":8080/user/add")
+    .send(req.body)
     .end(function (err, data) {
       if (data == undefined) {
         res.status(404).send({});
