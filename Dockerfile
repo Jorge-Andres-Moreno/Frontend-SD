@@ -1,10 +1,9 @@
 FROM node:latest
 
-WORKDIR /var/www/
+WORKDIR /app
 
-COPY . /var/www/
+COPY . /app
 
 RUN npm install
 
-CMD ["node","server"]
-
+CMD ["node","index"]

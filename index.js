@@ -6,7 +6,9 @@ var request = require("superagent");
 var bodyParser = require("body-parser");
 
 //Defined IP backend
-var backendHost = process.env.BACKEND || "127.0.0.1";
+var backendHost = process.env.BACKEND || "backendsd.ddns.net";
+
+var portBackend = process.env.PORT_BACKEND || 8080;
 
 //Define PORT
 var port = process.env.PORT || 80;
@@ -28,12 +30,12 @@ app.set("view engine", "html");
 app.get("/", function (req, res) {
   console.log('GET="/"');
   request
-    .get("http://" + backendHost + ":8080/users")
+    .get("http://" + backendHost + ":"+portBackend+"/users")
     .end(function (err, data) {
       if (data == undefined) {
         res.status(404).send({});
       } else {
-        if (data.status != 200) {
+        if (data.status == 403) {
           res.send(data.status, "We have an bug");
         } else {
           res.render("index", data.body);
@@ -47,17 +49,17 @@ app.post("/", function (req, res) {
   console.log('POST="/"');
   //console.log(req.body)
   request
-    .post("http://" + backendHost + ":8080/user/add")
+    .post("http://" + backendHost + ":"+portBackend+"/user/add")
     .send(req.body)
     .end(function (err, data) {
       if (data == undefined) {
         res.status(404).send({});
       } else {
-        if (data.status != 200) {
+        if (data.status == 403) {
           res.send(data.status, "We have an bug");
         } else {
           request
-            .get("http://" + backendHost + ":8080/users")
+            .get("http://" + backendHost + ":"+portBackend+"/users")
             .end(function (err, data) {
               if (data == undefined) {
                 res.status(404).send({});
