@@ -6,12 +6,12 @@ var request = require("superagent");
 var bodyParser = require("body-parser");
 
 //Defined IP backend
-var backendHost = process.env.BACKEND || "backendsd.ddns.net";
+var backendHost = process.env.BACKEND || "127.0.0.1";
 
 var portBackend = process.env.PORT_BACKEND || 8080;
 
 //Define PORT
-var port = process.env.PORT || 80;
+var port = process.env.PORT_FRONTEND || 80;
 
 //Initialize express
 var app = express();
@@ -30,26 +30,29 @@ app.set("view engine", "html");
 app.get("/", function (req, res) {
   console.log('GET="/"');
   request
-    .get("http://" + backendHost + ":"+portBackend+"/users")
+    .get("http://" + backendHost + ":"+portBackend+"/users/list")
     .end(function (err, data) {
       if (data == undefined) {
-        res.status(404).send({});
+        res.render("index", {users:[]});
       } else {
         if (data.status == 403) {
           res.send(data.status, "We have an bug");
         } else {
+          data.body.bodyparser = JSON.stringify(data.body);          
           res.render("index", data.body);
         }
+        return;      
       }
+      res.render("index", {users:[]});
     });
 });
 
 //METHOD POST"/"" return index.html file and consult list of users
-app.post("/", function (req, res) {
-  console.log('POST="/"');
+app.post("/add", function (req, res) {
+  console.log('POST="/add"');
   //console.log(req.body)
   request
-    .post("http://" + backendHost + ":"+portBackend+"/user/add")
+    .put("http://" + backendHost + ":"+portBackend+"/users/add")
     .send(req.body)
     .end(function (err, data) {
       if (data == undefined) {
@@ -59,7 +62,7 @@ app.post("/", function (req, res) {
           res.send(data.status, "We have an bug");
         } else {
           request
-            .get("http://" + backendHost + ":"+portBackend+"/users")
+            .get("http://" + backendHost + ":"+portBackend+"/users/list")
             .end(function (err, data) {
               if (data == undefined) {
                 res.status(404).send({});
@@ -73,6 +76,29 @@ app.post("/", function (req, res) {
             });
         }
       }
+    });
+});
+
+//METHOD POST"/"" return index.html file and consult list of users
+app.post("/user/delete", function (req, res) {
+  console.log('POST="/user/delete"');  
+  request
+    .delete("http://" + backendHost + ":"+portBackend+"/users/delete")
+    .send(req.body)
+    .end(function (err, data) {     
+          request
+            .get("http://" + backendHost + ":"+portBackend+"/users/list")
+            .end(function (err, data) {
+              if (data == undefined) {
+                res.status(404).send({});
+              } else {
+                if (data.status != 200) {
+                  res.send(data.status, "We have an bug");
+                } else {
+                  res.render("index", data.body);
+                }
+              }
+            });       
     });
 });
 

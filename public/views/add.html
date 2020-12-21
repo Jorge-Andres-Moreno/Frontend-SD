@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<title>SD</title>
+<title>Talemtun</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <style>
     body,
     h1 {
@@ -30,31 +31,46 @@
 
     <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
         <div class="w3-display-middle">
-            <h1>Agregar al sistema</h1>
-            <br><br>
-            <form method="POST" action="/" style="align-content: center;">
-                <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-3 col-form-label">ID</label>
-                    <div class="col-sm-9">
-                        <input type="input" class="form-control" name="id" id="inputEmail3" placeholder="ID">
-                    </div>
-                </div>
+            <h1 style="text-align:center;">Agregar al sistema</h1>
+            <br><br>    
+            <div style="align-content: center;">                
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-3 col-form-label">Nombre</label>
                     <div class="col-sm-9">
-                        <input type="input" class="form-control" name="nombre" id="inputEmail3" placeholder="Nombre">
+                        <input type="input" id="nombre" class="form-control" name="nombre" id="inputEmail3" placeholder="Nombre">
                     </div>
                 </div>
                 <br>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button class="btn btn-danger" onclick="Return();">Regresar</button>                    
+                    <button class="btn btn-primary" onclick="AddRecord();">Registrar</button>                    
                 </div>
-        </div>
-
+                
+              
+            </div>        
         </form>
     </div>
 
-    </div>
+    </div>    
+    <script>
+
+        function AddRecord() {
+                                    
+           $.ajax({
+               method: 'POST',
+               url:'/add',
+               data: {nombre: document.getElementById('nombre').value},                                
+           }).done(function() {               
+                Return();
+            });
+           
+        }  
+        
+        function Return(){
+            window.open("/","_self");
+        }
+           
+       </script>
 
 </body>
 
