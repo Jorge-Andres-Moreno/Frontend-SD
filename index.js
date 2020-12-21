@@ -37,8 +37,7 @@ app.get("/", function (req, res) {
       } else {
         if (data.status == 403) {
           res.send(data.status, "We have an bug");
-        } else {
-          data.body.bodyparser = JSON.stringify(data.body);          
+        } else {                   
           res.render("index", data.body);
         }
         return;      

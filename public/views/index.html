@@ -56,13 +56,11 @@
                                 <img id=<%=user.id %>
                                 src='./resources/delete.png'
                                 width='30' height='30'
-                                onclick="DeleteRecord(this)"
-                                style='display: inline;'>
+                                onclick="DeleteRecord(this)">
                                 <img id=<%=user.id %> name=<%=user.nombre %>
                                     src='./resources/edit.png'
                                     width='30' height='30'
-                                    onclick="ShowModal(this)"
-                                    style='display: inline;'>
+                                    onclick="ShowModal(this)">
                             </td>
                         </tr>
                     </tbody>
@@ -119,13 +117,13 @@
         }
 
         function ShowModal(jsonObj) {
-            jsonUserSelect = { nombre: jsonObj.name, id: jsonObj.id }            
+            jsonUserSelect = { nombre: jsonObj.name, id: jsonObj.id }
             $('#modalUserDetail').modal('show');
-            document.getElementById("nameRecord").value = jsonUserSelect.nombre;
+            $("#nameRecord").val(jsonUserSelect.nombre);
         }
 
         function UpdateRecord() {
-            jsonUserSelect.nombre = document.getElementById("nameRecord").value;
+            jsonUserSelect.nombre = $("#nameRecord").val();
             $.ajax({
                 method: 'POST',
                 url: '/user/update',
