@@ -102,6 +102,28 @@ app.post("/user/delete", function (req, res) {
     });
 });
 
+app.post("/user/update", function (req, res) {
+  console.log('POST="/user/update"');  
+  request
+    .post("http://" + backendHost + ":"+portBackend+"/users/update")
+    .send(req.body)
+    .end(function (err, data) {     
+          request
+            .get("http://" + backendHost + ":"+portBackend+"/users/list")
+            .end(function (err, data) {
+              if (data == undefined) {
+                res.status(404).send({});
+              } else {
+                if (data.status != 200) {
+                  res.send(data.status, "We have an bug");
+                } else {
+                  res.render("index", data.body);
+                }
+              }
+            });       
+    });
+});
+
 app.get("/add", function (req, res) {
   console.log('GET="/add"');
   res.render("add");
