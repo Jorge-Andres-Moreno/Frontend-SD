@@ -6,7 +6,7 @@ var request = require("superagent");
 var bodyParser = require("body-parser");
 
 //Defined IP backend
-var backendHost = process.env.BACKEND || "192.168.56.3";
+var backendHost = process.env.IP_BACKEND || "test-talentun.ddns.net";
 
 var portBackend = process.env.PORT_BACKEND || 8080;
 
