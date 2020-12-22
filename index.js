@@ -6,7 +6,7 @@ var request = require("superagent");
 var bodyParser = require("body-parser");
 
 //Defined IP backend
-var backendHost = process.env.BACKEND || "127.0.0.1";
+var backendHost = process.env.BACKEND || "192.168.56.3";
 
 var portBackend = process.env.PORT_BACKEND || 8080;
 
